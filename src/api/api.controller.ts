@@ -17,16 +17,12 @@ import {
 import { UpdateUserDTO, UserResponseDTO } from 'src/types';
 import { CreateUserDTO } from 'src/types/dto/create-user.dto';
 import { ApiService } from './api.service';
-import { SseService } from './sse.service';
 import { IsUUIDParam } from './validation';
 
 @ApiTags('users')
 @Controller('/api')
 export class ApiController {
-  constructor(
-    private readonly _apiService: ApiService,
-    private readonly _sseService: SseService,
-  ) {}
+  constructor(private readonly _apiService: ApiService) {}
 
   @Post('/users/')
   @ApiCreatedResponse({
@@ -94,17 +90,10 @@ export class ApiController {
     return this._apiService.deleteById(param.id);
   }
 
-  @Sse('/test')
+  @Sse('/sse/users')
   async sendUsers() {
     {
       return this._apiService.sseListener();
-      // const users = await this._apiService.findAll();
-      // return from(users).subscribe
-      //   .pipe(map((user) => ({ data: JSON.stringify(user) })));
-      // this._sseService.emitEvent(user)
-      // return interval(1000).pipe(
-      //   map((num: number) => ({ data: 'Hello World' + num })),
-      // );
     }
   }
 }

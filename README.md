@@ -3,17 +3,21 @@
 ```bash
 cp .env.example .env
 ```
-
-## Run Docker Containers
-```bash
-docker-compose build
-docker-compose up -d
-```
-
 ## Setup Database
 ```bash
-npx prisma migrate dev --name init
-npx prisma db seed
+docker-compose up -d
+npx prisma migrate dev
 ```
+
+
+## Run App
+```bash
+nvm use
+npm install 
+npm run start
+```
+
+### Links
+- swagger http://localhost:3000/api/documentation```
 
 
